@@ -1,7 +1,10 @@
 [project]
-name = "mainswarm"
+name = "SwarmLink"
 version = "0.1.0"
-description = "Add your description here"
+description = "Application to share data and view videos with your friends"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "black>=26.1.0",
+    "prettier>=0.0.7",
+]
