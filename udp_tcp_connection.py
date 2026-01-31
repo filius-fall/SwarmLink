@@ -66,6 +66,8 @@ def main():
             sock.sendto(udp_message,(BROADCAST_IP,UDP_PORT))
             print(f"Broadcast is being done on {UDP_PORT}")
             time.sleep(10)
+
+    udp_send_server()
             
                 
 
