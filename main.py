@@ -13,13 +13,14 @@ def main():
         s.close()
         return ip
 
-    def handle_tcp_connection(conn):
+    def handle_tcp_connection(conn, udp_connc):
         def recv_conn():
             while True:
                 data = conn.recv(1024)
                 if not data:
                     break
                 print(f"peer: {data.decode()}")
+                udp_connc.close()
 
         threading.Thread(target=recv_conn, daemon=True).start()
         while True:
@@ -55,7 +56,7 @@ def main():
         tcp_port = int(data.decode().split("Port=")[1])
         tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcp.connect((sender_ip, tcp_port))
-        handle_tcp_connection(tcp)
+        handle_tcp_connection(tcp,sock)
 
 
 if __name__ == "__main__":
