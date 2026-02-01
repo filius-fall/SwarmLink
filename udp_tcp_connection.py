@@ -103,7 +103,7 @@ def main():
 
         while True:
             sock.sendto(message,(BROADCAST_IP,UDP_PORT))
-            print(f"Broadcast is being done on {UDP_PORT}")
+            # print(f"Broadcast is being done on {UDP_PORT}") # Commented out to keep UI clean
             time.sleep(10)
 
     udp_send_server(UDP_MESSAGE)
