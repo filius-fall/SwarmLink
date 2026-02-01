@@ -7,7 +7,6 @@ def main():
     UDP_PORT = 6002
     BROADCAST_IP = "255.255.255.255"
     TCP_LIST_PORT = 5002
-    TCP_SEND_PORT = 5003
     UDP_MESSAGE = f"Sending Message|Port={TCP_LIST_PORT}".encode()
 
     def get_ip():
@@ -32,7 +31,9 @@ def main():
                     data = conn.recv(1024)
                     if not data:
                         break
-                    print(f"TCP Recieved data from {addr}: {data.decode()}")
+                    print(f"Message Recieved from {addr}: {data.decode()}")
+                    msg = input("me ->: ")
+                    conn.sendall(msg.encode())
                 except Exception as e:
                     print(f"Connection error: {e}")
                     break
@@ -88,8 +89,6 @@ def main():
 
             if ans == "y":
                 print(f"You will be connecting to addr: {addr} and port: {tcp_port}")
-                print(f"You will be connecting to addr: {addr} and port: {tcp_port}")
-                # Use the new send function
                 send_tcp_message(addr[0], tcp_port)
                 
     threading.Thread(target=udp_listen_server, daemon=True).start()
