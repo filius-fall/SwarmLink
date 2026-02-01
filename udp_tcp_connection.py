@@ -8,6 +8,8 @@ def main():
     BROADCAST_IP = "255.255.255.255"
     TCP_LIST_PORT = 5002
     UDP_MESSAGE = f"Sending Message|Port={TCP_LIST_PORT}".encode()
+    broadcast_event = threading.Event()
+    broadcast_event.set()
 
     def get_ip():
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -31,9 +33,7 @@ def main():
                     data = conn.recv(1024)
                     if not data:
                         break
-                    print(f"Message Recieved from {addr}: {data.decode()}")
-                    msg = input("me ->: ")
-                    conn.sendall(msg.encode())
+                    print(f"TCP Recieved from {addr}: {data.decode()}")
                 except Exception as e:
                     print(f"Connection error: {e}")
                     break
@@ -53,6 +53,9 @@ def main():
         # Client logic: persistent chat
         try:
             print(f"Connecting to {ip}:{port}...")
+            # Stop broadcasting while chatting
+            broadcast_event.clear()
+            
             client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_sock.connect((ip, port))
             print(f"Connected! Type 'exit' to stop.")
@@ -64,6 +67,8 @@ def main():
                 client_sock.sendall(msg.encode())
                 
             client_sock.close()
+            # Resume broadcasting after chat ends
+            broadcast_event.set()
             print("Chat ended.")
         except Exception as e:
             print(f"Connection ended or failed: {e}")
@@ -101,8 +106,9 @@ def main():
         
 
         while True:
-            sock.sendto(message,(BROADCAST_IP,UDP_PORT))
-            # print(f"Broadcast is being done on {UDP_PORT}") # Commented out to keep UI clean
+            if broadcast_event.is_set():
+                sock.sendto(message,(BROADCAST_IP,UDP_PORT))
+                # print(f"Broadcast is being done on {UDP_PORT}") # Commented out to keep UI clean
             time.sleep(10)
 
     udp_send_server(UDP_MESSAGE)
