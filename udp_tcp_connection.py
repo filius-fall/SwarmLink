@@ -71,11 +71,16 @@ def main():
     def udp_listen_server():
        udp_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
        udp_sock.bind(("0.0.0.0",UDP_PORT))
-
-       print("Listening on port:",UDP_PORT)
+       
+       host_ip = get_ip()
+       print(f"Listening on port: {UDP_PORT} (My IP: {host_ip})")
 
        while True:
             data,addr = udp_sock.recvfrom(4096)
+            
+            if addr[0] == host_ip:
+                continue
+                
             print(f"Recieved data from addr {addr} and data is {data.decode()}")
             tcp_port = int(data.decode().split("Port=")[1])
 
