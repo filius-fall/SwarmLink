@@ -1,0 +1,13 @@
+services:
+  node:
+    build: .
+    command: >
+      sh -c "python run_node.py --name ${HOSTNAME} --tcp-port 6001 2>&1 | tee /app/logs/${HOSTNAME}.log"
+    networks:
+      - swarmlink_net
+    volumes:
+      - ./logs:/app/logs
+
+networks:
+  swarmlink_net:
+    driver: bridge
