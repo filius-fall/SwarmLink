@@ -5,6 +5,8 @@ description = "Application to share data and view videos with your friends"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.116.1",
+    "uvicorn>=0.35.0",
     "black>=26.1.0",
     "prettier>=0.0.7",
 ]
