@@ -49,6 +49,7 @@ class SwarmLinkNode:
         self.peer_registry = PeerRegistry()
         self.file_index = SharedFileIndex()
         self.downloader = SwarmDownloader(self.request_peer)
+        self.on_chat_received = None
 
         self.discovery = DiscoveryService(
             peer_registry=self.peer_registry,
@@ -118,6 +119,8 @@ class SwarmLinkNode:
                 from_name = message.get("from_name", "unknown")
                 text = message.get("text", "")
                 print(f"\n[CHAT] {from_name}@{addr[0]}: {text}")
+                if callable(self.on_chat_received):
+                    self.on_chat_received(message, addr)
                 send_json_line(conn, {"ok": True})
                 return
 

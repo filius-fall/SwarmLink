@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SwarmLink Web</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>SwarmLink</h1>
+      <p>Peer discovery, chat, and file sharing</p>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Node</h2>
+        <pre id="nodeInfo">loading...</pre>
+      </section>
+
+      <section class="card">
+        <h2>Discovered Peers</h2>
+        <button id="refreshPeers">Refresh Peers</button>
+        <ul id="peerList"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Chat</h2>
+        <label>Peer ID</label>
+        <input id="chatPeerId" placeholder="peer_id" />
+        <label>Message</label>
+        <input id="chatText" placeholder="Type message" />
+        <button id="sendChat">Send</button>
+        <h3>Messages</h3>
+        <div id="messages" class="messages"></div>
+      </section>
+
+      <section class="card">
+        <h2>Share Local File</h2>
+        <input id="sharePath" placeholder="/absolute/path/to/file" />
+        <button id="shareFile">Share</button>
+        <p id="shareResult"></p>
+        <h3>My Shared Files</h3>
+        <button id="refreshLocalFiles">Refresh My Files</button>
+        <ul id="localFiles"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Peer Files</h2>
+        <label>Peer ID</label>
+        <input id="peerFilesPeerId" placeholder="peer_id" />
+        <button id="loadPeerFiles">Load Peer Files</button>
+        <ul id="peerFiles"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Download</h2>
+        <label>File ID</label>
+        <input id="downloadFileId" placeholder="file_id" />
+        <label>Output Path (optional)</label>
+        <input id="downloadPath" placeholder="downloads/output.bin" />
+        <button id="downloadFile">Download</button>
+        <p id="downloadResult"></p>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

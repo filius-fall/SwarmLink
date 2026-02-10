@@ -52,11 +52,27 @@ Optional environment variables:
 - `GET /health` → health check
 - `GET /node` → local node details
 - `GET /peers` → discovered peers
+- `GET /messages` → in-memory chat feed (inbound + outbound)
 - `POST /chat` → send chat to peer
 - `POST /share` → share local file
 - `GET /files/local` → local shared files
 - `GET /files/find?query=<text>` → search files on peers
+- `GET /files/peer/{peer_id}` → list files available on one peer
 - `POST /download` → download file from swarm
+
+### Web Frontend
+
+A browser UI is included and served by FastAPI at `/`.
+
+What you can do from UI:
+- See discovered peers
+- Send and view chat messages
+- Share local files
+- Browse files exposed by a selected peer
+- Download files directly by `file_id`
+
+Open in browser:
+- `http://localhost:8000/`
 
 Example request bodies:
 

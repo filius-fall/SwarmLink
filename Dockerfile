@@ -8,6 +8,7 @@ COPY file_swarm.py /app/file_swarm.py
 COPY tcp_protocol.py /app/tcp_protocol.py
 COPY run_node.py /app/run_node.py
 COPY api.py /app/api.py
+COPY static /app/static
 
 RUN pip install --no-cache-dir fastapi uvicorn
 RUN mkdir -p /app/logs
